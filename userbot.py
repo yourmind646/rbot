@@ -12,10 +12,26 @@ from re import search as re_search
 from asyncio import sleep
 import random
 import simplejson as json
+import os.path
 
+
+# Create cfg if not exists
+if not os.path.exists("./config.json"):
+	with open('config.json', 'w') as j:
+		account_name = "account"
+		api_id = input('Введи api_id --> ')
+		api_hash = input('Введи api_hash --> ')
+
+		result = {
+			"session_name": account_name,
+			"API_ID": api_id,
+			"API_HASH": api_hash
+		}
+
+		json.dump(result, j)
 
 # Загрузка данных из конфига
-with open('login_data.json', 'r') as j:
+with open('config.json', 'r') as j:
 	login_data = json.load(j)
 
 # Инициализация объекта клиента
